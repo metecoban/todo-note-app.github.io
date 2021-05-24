@@ -45,14 +45,16 @@ header, .note-form {
 .note-btn-add {
     color: var(--accent-color);
     cursor: pointer;
+    border-radius: 0 5px 5px 0;
 }
 
 .note-btn-add:hover {
     color: white;
     background-color: var(--accent-color);
+    
 }
 
-.note-will-container, .note-now-container, .note-past-container {
+.note-container {
     background-color: #126e82;
     display: inline-block;
     justify-content: center;
@@ -61,6 +63,45 @@ header, .note-form {
     width: 60vh;
     margin: 1rem;
     border-radius: 5px;
+}
+
+@media (max-width: 800px){
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+    }
+}
+
+@media (max-width: 430px){
+    .note-container {
+        width: 40vh;
+    }
+
+    .note-btn {
+        font-size: .8rem !important;
+        padding: .4rem !important;
+    }
+    
+    .note-item {
+        margin: .5rem;
+        font-size: 1.2rem;
+    }
+
+    .note-content {
+        font-size: .8rem;
+    }
+    
+    .form-item {
+        padding: .4rem;
+        font-size: .9rem;
+    }
+
+    .timer-list {
+        font-size: .6rem !important;
+    }
 }
 
 .note-menu-header {
@@ -84,6 +125,10 @@ header, .note-form {
     color: green;
 }
 
+.input-note {
+    border-radius: 5px 0 0 5px;
+}
+
 .note-item {
     display: flex;
     justify-content: center;
@@ -92,6 +137,7 @@ header, .note-form {
     font-size: 1.2rem;
     background-color: white;
     transition: .5s;
+    border-radius: 5px;
 }
 
 .note-content {
@@ -113,6 +159,11 @@ header, .note-form {
 
 .note-btn-delete {
     background-color: rgb(255, 70, 70);
+    border-radius: 0 5px 5px 0;
+}
+
+.note-btn-confirm {
+    border-radius: 0 5px 5px 0;
 }
 
 .note-confirmed {
