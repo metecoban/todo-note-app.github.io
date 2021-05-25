@@ -26,7 +26,7 @@ function startOrDeleteOnToDo(e) {
         let startTime = d.toLocaleTimeString();
         createNote(clickedBtnText, 'workingArr', startTime);
         addToLocalStorage(clickedBtnText + startTime, 'workingArr');
-        dellFromLocalStorage(clickedBtnText + startTime, 'toDoArr');
+        dellFromLocalStorage(clickedBtnText, 'toDoArr');
         clickedBtn.parentElement.remove();
     }
     if (clickedBtn.classList.contains('note-btn-delete')) {
@@ -44,15 +44,18 @@ function confirmOnWorking(e) {
         let spentTime = diff(clickedBtnTextForTimer, d.toLocaleTimeString());
         createNote(clickedBtnText, 'doneArr', clickedBtnTextForTimer, spentTime);
         addToLocalStorage(clickedBtnText + clickedBtnTextForTimer + " " + spentTime, 'doneArr');
-        dellFromLocalStorage(clickedBtnText, 'workingArr');
+        dellFromLocalStorage(clickedBtnText + clickedBtnTextForTimer, 'workingArr');
         clickedBtn.parentElement.remove();
     }
 }
 
 function dellOnDone(e) {
     const clickedBtn = e.target;
+    const clickedBtnText = clickedBtn.parentElement.children[0].textContent;
+    const clickedBtnTextForTimer = clickedBtn.parentElement.children[1].children[0].textContent.slice(clickedBtn.parentElement.children[1].children[0].textContent.length - 8, clickedBtn.parentElement.children[1].children[0].textContent.length);
+    const clickedBtnTextForTimerSpent = clickedBtn.parentElement.children[1].children[1].textContent.slice(clickedBtn.parentElement.children[1].children[1].textContent.length - 8, clickedBtn.parentElement.children[1].children[1].textContent.length);
     if (clickedBtn.classList.contains('note-btn-delete')) {
-        dellFromLocalStorage(clickedBtn.parentElement.children[0].textContent, 'doneArr');
+        dellFromLocalStorage(clickedBtnText + clickedBtnTextForTimer + " " + clickedBtnTextForTimerSpent, 'doneArr');
         clickedBtn.parentElement.remove();
     }
 }
@@ -197,7 +200,9 @@ function diff(start, end) {
     diff -= hours * 1000 * 60 * 60;
     var minutes = Math.floor(diff / 1000 / 60);
     var seconds = Math.floor(diff / 1000);  // I changed this part.
-
+    if(seconds>60){
+        seconds = seconds % 60;
+    }
     // If using time pickers with 24 hours format, add the below line get exact hours
     if (hours < 0)
         hours = hours + 24;
