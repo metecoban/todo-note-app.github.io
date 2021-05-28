@@ -23,7 +23,7 @@ function startOrDeleteOnToDo(e) {
     const clickedBtnText = clickedBtn.parentElement.children[0].textContent;
     if (clickedBtn.classList.contains('note-btn-start')) {
         let d = new Date();
-        let startTime = d.toLocaleTimeString();
+        let startTime = d.toLocaleTimeString('en-GB');
         createNote(clickedBtnText, 'workingArr', startTime);
         addToLocalStorage(clickedBtnText + startTime, 'workingArr');
         dellFromLocalStorage(clickedBtnText, 'toDoArr');
@@ -41,7 +41,7 @@ function confirmOnWorking(e) {
     const clickedBtnTextForTimer = clickedBtn.parentElement.children[1].children[0].textContent.slice(clickedBtn.parentElement.children[1].children[0].textContent.length - 8, clickedBtn.parentElement.children[1].children[0].textContent.length);
     if (clickedBtn.classList.contains('note-btn-confirm')) {
         let d = new Date();
-        let spentTime = diff(clickedBtnTextForTimer, d.toLocaleTimeString());
+        let spentTime = diff(clickedBtnTextForTimer, d.toLocaleTimeString('en-GB'));
         createNote(clickedBtnText, 'doneArr', clickedBtnTextForTimer, spentTime);
         addToLocalStorage(clickedBtnText + clickedBtnTextForTimer + " " + spentTime, 'doneArr');
         dellFromLocalStorage(clickedBtnText + clickedBtnTextForTimer, 'workingArr');
@@ -199,10 +199,7 @@ function diff(start, end) {
     var hours = Math.floor(diff / 1000 / 60 / 60);
     diff -= hours * 1000 * 60 * 60;
     var minutes = Math.floor(diff / 1000 / 60);
-    var seconds = Math.floor(diff / 1000);  // I changed this part.
-    if(seconds>60){
-        seconds = seconds % 60;
-    }
+    var seconds = Math.floor(diff / 1000) % 60;  // I changed this part.
     // If using time pickers with 24 hours format, add the below line get exact hours
     if (hours < 0)
         hours = hours + 24;
